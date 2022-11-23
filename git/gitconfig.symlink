@@ -45,3 +45,8 @@
         browser = open
 [include]
         path = ~/.gitconfig.local
+[init]
+	defaultBranch = main
+[user]
+	name = Robert Graff
+	email = robert@workingdemo.com
