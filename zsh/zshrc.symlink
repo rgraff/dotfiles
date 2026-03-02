@@ -41,15 +41,10 @@ cdpath=(. ~ ~/src $SOURCE_DIR)
 # rust, et al
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# chruby!
-# osx location
-[[ ! -a /usr/local/opt/chruby/share/chruby/chruby.sh ]] || source /usr/local/opt/chruby/share/chruby/chruby.sh
-[[ ! -a /usr/local/opt/chruby/share/chruby/auto.sh ]] || source /usr/local/opt/chruby/share/chruby/auto.sh
-# ubuntu location
-[[ ! -a /usr/local/share/chruby/chruby.sh ]] || source /usr/local/share/chruby/chruby.sh
-[[ ! -a /usr/local/share/chruby/auto.sh ]] || source /usr/local/share/chruby/auto.sh
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ ! -a /opt/homebrew/opt/chruby/share/chruby/chruby.sh ]] || source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+[[ ! -a /opt/homebrew/opt/chruby/share/chruby/auto.sh ]] || source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -58,3 +53,12 @@ export NVM_DIR="$HOME/.nvm"
 zrcl="$HOME/.zshrc.local"
 
 [[ ! -a $zrcl ]] || source $zrcl
+
+# bun completions
+[ -s "/Users/rgraff/.bun/_bun" ] && source "/Users/rgraff/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+eval "$(mise activate zsh)"

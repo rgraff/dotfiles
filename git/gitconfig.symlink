@@ -27,7 +27,7 @@
 [color]
         ui = auto
 [core]
-        excludesfile = ~/.gitignore
+	excludesfile = /Users/rgraff/.gitignore_global
         editor = vim
         whitespace = warn
 	abbrev = 7
@@ -39,6 +39,7 @@
         summary = true
 [push]
         default = tracking
+        autoSetupRemote = true
 [rebase]
         autosquash = true
 [web]
