@@ -1,5 +1,7 @@
 #!/bin/sh
 #
-# Sets OS X defaults by running $DOTHOME/osx/set-defaults.sh.
+# Sets OS X defaults by running osx/set-defaults.sh.
+# DOTHOME is derived from this script's location so it works when run standalone.
 
-exec $DOTHOME/osx/set-defaults.sh
+DOTHOME="$(cd "$(dirname "$0")/.." && pwd)"
+exec "$DOTHOME/osx/set-defaults.sh"

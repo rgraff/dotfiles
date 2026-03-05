@@ -27,7 +27,7 @@
 [color]
         ui = auto
 [core]
-	excludesfile = /Users/rgraff/.gitignore_global
+	excludesfile = ~/.gitignore_global
         editor = vim
         whitespace = warn
 	abbrev = 7
@@ -48,6 +48,3 @@
         path = ~/.gitconfig.local
 [init]
 	defaultBranch = main
-[user]
-	name = Robert Graff
-	email = robert@workingdemo.com

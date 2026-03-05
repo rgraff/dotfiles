@@ -4,6 +4,7 @@
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
+export DOTFILES_ROOT
 
 set -e
 
@@ -42,27 +43,34 @@ setup_gitconfig_local () {
     success 'gitconfig'
   fi
 
+  # Email for SSH key: use the one we just prompted for, or read from existing .gitconfig.local
+  local email="${git_authoremail:-$(git config -f $HOME/.gitconfig.local user.email 2>/dev/null)}"
+
   mkdir -p ${HOME}/tmp
 
-  if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
-    ssh-keygen -t rsa -C "${git_authoremail}"
-    cat $HOME/.ssh/id_rsa.pub
+  if [ ! -f "$HOME/.ssh/id_ed25519.pub" ]; then
+    ssh-keygen -t ed25519 -C "${email}"
+    success 'SSH key created'
+    if command -v pbcopy >/dev/null 2>&1; then
+      cat "$HOME/.ssh/id_ed25519.pub" | pbcopy
+      echo "Your SSH public key has been copied to your clipboard."
+      echo "Add it to github.com (unless it's there already) and press Enter to continue."
+      read -r
+    fi
   fi
-
-  cat $HOME/.ssh/id_rsa.pub | pbcopy
-  echo "Your ssh public key has been copied to your clipboard.\n Add it to github.com (unless it's there already) and press any key to continue"
-  read
 
   if [ ! -f "$HOME/.ssh/config" ]; then
     echo "Writing .ssh/config"
+    mkdir -p "$HOME/.ssh"
 cat > $HOME/.ssh/config <<SSHCONFIG
 ServerAliveInterval 60
 ServerAliveCountMax 3
 ForwardAgent yes
 
-Host *
-  IdentityFile ~/.ssh/id_rsa
+Host github.com
   AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
 SSHCONFIG
   fi
 
@@ -81,14 +89,19 @@ link_file () {
     if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
     then
 
-      local currentSrc="$(readlink $dst)"
-
-      if [ "$currentSrc" == "$src" ]
-      then
-
-        skip=true;
-
-      else
+      local src_abs current_abs
+      src_abs="$(cd "$(dirname "$src")" && pwd)/$(basename "$src")"
+      if [ -L "$dst" ]; then
+        current_abs="$(readlink "$dst")"
+        case "$current_abs" in
+          /*) ;;
+          *) current_abs="$(cd "$(dirname "$dst")" && pwd)/$current_abs"
+        esac
+        if [ "$current_abs" = "$src_abs" ]; then
+          skip=true
+        fi
+      fi
+      if [ "$skip" != "true" ]; then
 
         user "File already exists: $(basename "$src"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 action
@@ -160,6 +173,10 @@ fd=0 # stdin
 # Set up gitconfig.local only in an interactive shell
 if [[ -t "$fd" || -p /dev/stdin ]]; then
   setup_gitconfig_local
+fi
+
+if ! [ -f "$HOME/.gitconfig.local" ]; then
+  fail "No ~/.gitconfig.local found. Run bootstrap in an interactive shell to create it, or copy git/gitconfig.local.example to ~/.gitconfig.local and set your name and email."
 fi
 
 install_dotfiles

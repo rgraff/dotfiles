@@ -1,13 +1,11 @@
 ## dotfiles
 
-Goldstar's dotfiles based on [Zach Holman](https://github.com/holman)'s [dotfiles](https://github.com/holman/dotfiles) philosophy. However, there's plenty of stuff from [Hashrocket](https://github.com/hashrocket)'s [dotmatrix](https://github.com/hashrocket/dotmatrix).
-
 ## install
 
 Run this:
 
 ```sh
-git clone https://github.com/goldstar/dotfiles.git ~/.dotfiles
+git clone https://github.com/rgraff/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 ```
@@ -17,11 +15,17 @@ Everything is configured and tweaked within `~/.dotfiles`.
 
 The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
+The shell uses [Oh My Zsh](https://ohmyz.sh/); theme and plugins are set there (override in `~/.zshrc.local` with `ZSH_THEME` and `plugins=(...)` if you like).
 
 `dot` is a simple script that installs some dependencies, sets sane OS X
-defaults, and so on. Tweak this script, and occasionally run `dot` from
-time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
+defaults, and so on. Tweak this script, and occasionally run it to keep
+your environment fresh and up-to-date:
+
+```sh
+./bin/dot
+```
+
+Or ensure `bin` is on your `PATH` and run `dot`.
 
 ## topical
 
