@@ -1,3 +1,7 @@
+# So Ruby gems with native extensions (e.g. psych) can find Homebrew's libyaml
+[[ -d "$(brew --prefix libyaml 2>/dev/null)/lib/pkgconfig" ]] && \
+  export PKG_CONFIG_PATH="$(brew --prefix libyaml)/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+
 for dir in /opt/homebrew/bin /usr/local/bin "$DOTHOME/bin" .git/safe/../../bin .git/bin; do
   case "$PATH:" in
     *:"$dir":*) PATH="`echo "$PATH"|sed -e "s#:$dir##"`" ;;

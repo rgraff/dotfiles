@@ -26,6 +26,7 @@
 # brew "tmux"
 # brew "wget"
 # cask "aws-vault"
+brew "libyaml"
 
 # Application Dependencies
 brew "mise"
