@@ -30,6 +30,9 @@ brew "libyaml"
 
 # Application Dependencies
 brew "mise"
+cask "1password-cli"
+brew "uv" # https://docs.astral.sh/uv/
+brew "python@3.13"
 # brew "autoconf"
 # brew "automake"
 # brew "awslogs"

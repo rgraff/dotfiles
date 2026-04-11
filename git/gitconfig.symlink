@@ -27,7 +27,7 @@
 [color]
         ui = auto
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore
         editor = vim
         whitespace = warn
 	abbrev = 7
@@ -48,3 +48,11 @@
         path = ~/.gitconfig.local
 [init]
 	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Robert Graff
+	email = robert@workingdemo.com
