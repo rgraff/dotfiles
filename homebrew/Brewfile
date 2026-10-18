@@ -50,6 +50,7 @@ brew "python@3.13"
 # brew "redis"
 # brew "ruby-install"
 cask "ngrok"
+brew "rsync"
 
 # Hashicorp Tools
 tap "hashicorp/tap", trusted: true
