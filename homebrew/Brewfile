@@ -9,6 +9,7 @@
 # brew "markdown"
 # brew "vim"
 cask "claude-code"
+brew "herdr"
 
 # Terminal Tools
 # brew "ack"
