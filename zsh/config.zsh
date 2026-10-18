@@ -64,5 +64,6 @@ bindkey '\en' down-line-or-search
 bindkey '\ew' kill-region
 
 # Hashicorp targets
-export VAULT_ADDR="https://vault.gse-eng.io"
-export NOMAD_ADDR="https://nomad-servers.gse-eng.io"
+export NOMAD_ADDR=https://nomad-servers.ke-eng.io
+export VAULT_ADDR=https://vault.ke-eng.io
+export VAULT_SKIP_VERIFY=true

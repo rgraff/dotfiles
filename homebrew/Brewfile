@@ -29,6 +29,7 @@ cask "ghostty"
 # brew "wget"
 # cask "aws-vault"
 brew "libyaml"
+brew "tailscale"
 
 # Application Dependencies
 brew "mise"
