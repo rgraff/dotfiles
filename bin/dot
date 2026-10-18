@@ -17,7 +17,7 @@ case $DISTRO in
     # Set OS X defaults
     sh "$DOTHOME/osx/set-defaults.sh"
     # Oh My Zsh (once)
-    [ -f "$DOTHOME/zsh/install.sh" ] && { echo "Zsh/Oh My Zsh"; zsh "$DOTHOME/zsh/install.sh" 2>&1; }
+    if [ -f "$DOTHOME/zsh/install.sh" ]; then echo "Zsh/Oh My Zsh"; zsh "$DOTHOME/zsh/install.sh" 2>&1; fi
     # Install/upgrade nodes
     sh "$DOTHOME/node/install.sh" 2>&1
     # Install/upgrade homebrew packages
@@ -27,7 +27,7 @@ case $DISTRO in
     # Install/upgrade rubies
     echo "Ruby update"
     sh "$DOTHOME/ruby/install.sh" 2>&1
-    [ -f "$DOTHOME/databases/install.sh" ] && { echo "Database(s) update"; sh "$DOTHOME/databases/install.sh" 2>&1; }
+    if [ -f "$DOTHOME/databases/install.sh" ]; then echo "Database(s) update"; sh "$DOTHOME/databases/install.sh" 2>&1; fi
     ;;
   *)
     echo "Good luck with that"
@@ -35,4 +35,4 @@ case $DISTRO in
 esac
 
 # Install vim bundles (optional; runs on all platforms)
-[ -f "$DOTHOME/vim/install.sh" ] && sh "$DOTHOME/vim/install.sh" 2>&1
+if [ -f "$DOTHOME/vim/install.sh" ]; then sh "$DOTHOME/vim/install.sh" 2>&1; fi
